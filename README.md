@@ -6,3 +6,36 @@
 1、ser.py是一个极简单的，只支持加减乘除的计算器的mcp server
 
 2、calculator.py是一个支持各种复杂计算的，mcp server。实现基于python的eval函数，支持math和random模块。
+
+ client.py是一个简单的mcp客户端调用，用于演示如何执行结果
+
+ llm_client2.py是一个完整实现，包括调用qwen大模型来调用mcp server，获取参数描述，然后再组合参数，最后调用mcp server计算结果，最后再整合相关计算结果，给出答案描述。
+
+###对于第一个mcp server的使用示例
+用户: 小五29，小李88，他们的平均年龄是多少？
+
+助手:  {"tool": "add", "arguments": {"a": 29, "b": 88}}
+
+助手:  {"tool": "divide", "arguments": {"a": 117.0, "b": 2}}
+
+助手:  他们的平均年龄是58.5岁。
+
+
+###对于第二个mcp server的使用示例
+用户: 在13个数字中选四个，可以重复选，不考虑顺序，最多有多少种选法？
+
+助手:  {"tool": "calculator", "arguments": {"python_expression": "(13 + 4 - 1) * (13 + 4 - 2) * (13 + 4 - 3) * (13 + 4 - 4) / (4 * 3 * 2 * 1)"}}
+
+助手:  最多有 1820 种选法。
+
+用户: 小明的身高是1.8米，小王的身高是1.4米，他们两个的平均身高是多少？
+
+助手:  {"tool": "calculator", "arguments": {"python_expression": "(1.8 + 1.4) / 2"}}
+
+助手:  他们两个的平均身高是 1.6 米。
+
+用户: 在下面的数组中帮我随机挑选6个数出来：[6, 7, 7, 7, 8, 8, 8, 9]
+
+助手:  {"tool": "calculator", "arguments": {"python_expression": "random.choices([6, 7, 7, 7, 8, 8, 8, 9], k=6)"}}
+
+助手:  随机挑选的6个数是：[7, 7, 8, 7, 8, 6]。
